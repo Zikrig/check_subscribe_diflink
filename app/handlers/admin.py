@@ -45,7 +45,7 @@ async def edit_welcome_menu(callback: CallbackQuery):
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Текст", callback_data="edit_welcome_text")],
         [InlineKeyboardButton(text="Изображение", callback_data="edit_welcome_photo")],
-        [InlineKeyboardButton(text="Назад", callback_data="admin_back")]
+        # [InlineKeyboardButton(text="Назад", callback_data="admin_back")]
     ])
     await callback.message.edit_text("Что хотите изменить?", reply_markup=keyboard)
     await callback.answer()
@@ -181,9 +181,9 @@ async def manage_channels(callback: CallbackQuery):
                     callback_data=f"edit_channel_{channel.id}"
                 )
             ])
-        keyboard.inline_keyboard.append([
-            InlineKeyboardButton(text="Добавить канал", callback_data="add_channel")
-        ])
+        # keyboard.inline_keyboard.append([
+        #     InlineKeyboardButton(text="Добавить канал", callback_data="add_channel")
+        # ])
         
         await callback.message.edit_text("Управление каналами:", reply_markup=keyboard)
     await callback.answer()

@@ -66,3 +66,5 @@ async def check_subs(callback: CallbackQuery, bot: Bot):
                     f"Спасибо! Ваша ссылка: {promo.action_url}\n\n"
                     # f"Уникальный ID для отслеживания: {callback.from_user.id}"
                 )
+                
+                await callback.answer()
