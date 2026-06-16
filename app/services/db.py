@@ -5,6 +5,8 @@ from sqlalchemy import String, BigInteger, Boolean, Text, Integer, insert, selec
 
 from app.config import settings
 
+settings.SQLITE_PATH.parent.mkdir(parents=True, exist_ok=True)
+
 engine = create_async_engine(settings.DB_URL, echo=False)
 SessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
@@ -57,4 +59,16 @@ async def init_db():
                         is_active=True
                     )
                 )
-        await conn.commit()
+
+        promo_exists = await conn.execute(
+            select(Promotion).where(Promotion.id == 1)
+        )
+        if not promo_exists.scalar_one_or_none():
+            await conn.execute(
+                insert(Promotion).values(
+                    id=1,
+                    welcome_text="Добро пожаловать!",
+                    action_url="https://example.com",
+                    click_count=0,
+                )
+            )
